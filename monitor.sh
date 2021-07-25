@@ -16,7 +16,7 @@ convert_mov () {
     ffmpeg \
         -i "${input_mov}" \
         -c:v libx264 \
-        -preset veryslow \
+        -preset slow \
         -crf 22 \
         -c:a copy \
         "${filename}__transcoded.mkv" && \
@@ -45,7 +45,7 @@ while true; do
                 filename="${filename%.*}"
                 output_file="${filename}.mkv"
                 # transcode:
-                convert_mov "/auto_transcode/input/${file}" "${output_file}"
+                nice -n 15 convert_mov "/auto_transcode/input/${file}" "${output_file}"
                 # move output:
                 if [[ -f "/auto_transcode/output/${output_file}" ]]; then
                     echo "$(get_date): File ${output_file} already exists at output destination. Not moving." | tee /dev/fd/3
