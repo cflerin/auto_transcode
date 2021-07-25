@@ -39,9 +39,7 @@ With docker-compose::
 
     auto_transcode:
       container_name: auto_transcode
-      build:
-        context: /path/to/auto_transcode
-        dockerfile: /path/to/auto_transcode/Dockerfile
+      image: cflerin/autotranscode:latest
       volumes:
         - /path/to/watch_directory:/auto_transcode/input
         - /path/to/output:/auto_transcode/output
