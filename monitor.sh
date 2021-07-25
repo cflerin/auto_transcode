@@ -46,6 +46,8 @@ while true; do
                 output_file="${filename}.mkv"
                 # transcode:
                 nice -n 15 convert_mov "/auto_transcode/input/${file}" "${output_file}"
+                # copy timestamp from original file:
+                touch -r "/auto_transcode/input/${file}" "${output_file}"
                 # move output:
                 if [[ -f "/auto_transcode/output/${output_file}" ]]; then
                     echo "$(get_date): File ${output_file} already exists at output destination. Not moving." | tee /dev/fd/3
