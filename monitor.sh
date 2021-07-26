@@ -54,12 +54,16 @@ while true; do
                 else
                     echo "$(get_date): Moving ${output_file} to output." | tee /dev/fd/3
                     mv "${output_file}" /auto_transcode/output/
+                    # change ownership if these env vars are set:
+                    if [[ -z "${PUID}" ]] && [[ -z "${PGID}" ]]; then
+                        chown "${PUID}:${PGID}" "/auto_transcode/output/${output_file}"
+                    fi
                 fi
                 # move original to archive:
                 if [[ -f "/auto_transcode/archive/${file}" ]]; then
                     echo "$(get_date): File ${file} already exists at archive destination. Not moving." | tee /dev/fd/3
                 else
-                    echo "$(get_date): Archiving ${output_file}." | tee /dev/fd/3
+                    echo "$(get_date): Archiving ${file}." | tee /dev/fd/3
                     mv "/auto_transcode/input/${file}" /auto_transcode/archive/
                 fi
                 echo "$(get_date): Done!" | tee /dev/fd/3
