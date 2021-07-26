@@ -13,14 +13,14 @@ convert_mov () {
     local input_mov="${1}"
     local output_mov="${2}"
     #
-    ffmpeg \
+    nice -n 15 ffmpeg \
         -i "${input_mov}" \
         -c:v libx264 \
         -preset slow \
         -crf 22 \
         -c:a copy \
         "${filename}__transcoded.mkv" && \
-    ffmpeg-normalize \
+    nice -n 15 ffmpeg-normalize \
         "${filename}__transcoded.mkv" \
         -lrt 5 \
         -c:a mp3 \
@@ -45,7 +45,7 @@ while true; do
                 filename="${filename%.*}"
                 output_file="${filename}.mkv"
                 # transcode:
-                nice -n 15 convert_mov "/auto_transcode/input/${file}" "${output_file}"
+                convert_mov "/auto_transcode/input/${file}" "${output_file}"
                 # copy timestamp from original file:
                 touch -r "/auto_transcode/input/${file}" "${output_file}"
                 # move output:
