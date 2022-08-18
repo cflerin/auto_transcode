@@ -1,7 +1,7 @@
 auto_transcode
 **************
 
-Monitor a directory for new video files ending in (mov|MOV), transcode and normalize audio, moving the output to a new location.
+Monitor a directory for new video files ending in (mov|MOV|mp4|MP4), transcode and normalize audio, moving the output to a new location.
 Uses ``ionotifywait``,
 `ffmpeg <http://ffmpeg.org/>`_,
 and

@@ -38,7 +38,7 @@ while true; do
     inotifywait --monitor /auto_transcode/input -e create -e moved_to | 
         while read path action file; do
             echo "$(get_date): Found ${file}." | tee /dev/fd/3
-            if [[ "${file}" =~ \.(mov|MOV)$ ]]; then
+            if [[ "${file}" =~ \.(mov|MOV|mp4|MP4)$ ]]; then
                 echo "$(get_date): Starting processing of: ${file}." | tee /dev/fd/3
                 # determine output file name:
                 filename=$(basename -- "$file")
